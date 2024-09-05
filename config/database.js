@@ -10,5 +10,13 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.log("Conectado a la base de datos SQLite.");
     }
 });
+// Crear tabla de usuarios si no existe
+db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+    )`);
+});
 
 module.exports = db;
