@@ -28,18 +28,18 @@ class UserController {
         }
     }
 
-    static login(req, res) {
+    static async login(req, res) {
         console.log('Controlador de inicio de sesión alcanzado');
         console.log('Datos recibidos:', req.body);
         
         try {
             const { username, password } = req.body;
-            const user = UserService.findUserByUsername(username);
+            const user = await UserService.findUserByUsername(username);
             if (!user) {
                 return res.status(404).json({ error: 'Usuario no encontrado' });
             }
 
-            const isMatch = bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.status(400).json({ error: 'Contraseña incorrecta' });
             }
