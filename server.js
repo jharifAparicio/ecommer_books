@@ -16,12 +16,19 @@ app.use((req, res, next) => {
 
 //importing routes
 const bookRoutes = require('./routes/bookRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 //middleware
 app.use(express.json());
 
 //routes
 app.use('/api', bookRoutes);
+app.use('/api/users', userRoutes);
+
+//error handling
+app.use((req, res) => {
+    res.status(404).json({ error: 'Ruta no encontrada' });
+});
 
 //initialize server
 const port = process.env.PORT || 3000;
