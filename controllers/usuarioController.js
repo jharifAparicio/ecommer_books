@@ -5,7 +5,7 @@ class UsuarioController {
         try {
             const {nombre,correo,contraseña} = req.body;
             const id = await UsuarioService.createUsuario(nombre,correo,contraseña);
-            res.status(201).json({id});
+            res.status(201).json({id: id, message: 'Usuario creado'});
         } catch(err) {
             res.status(500).json({message: err.message});
         }
