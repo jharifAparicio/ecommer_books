@@ -17,8 +17,8 @@ yarn-error.log*
 Thumbs.db
 
 # Bases de datos locales
-database/*.sqlite
-database/*.sqlite3
+src/database/*.sqlite
+src/database/*.sqlite3
 
 # Archivos temporales
 *.tmp
