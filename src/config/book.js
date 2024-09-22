@@ -23,12 +23,12 @@ bookDB.serialize(() => {
         CREATE TABLE IF NOT EXISTS books (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
-        autor TEXT NOT NULL,
+        author TEXT NOT NULL,
         isbn TEXT NOT NULL,
         editorial TEXT NOT NULL,
         price REAL NOT NULL,
         stock INTEGER NOT NULL,
-        fechaCreacion DATE DEFAULT (datetime('now')),
+        dateCreation DATE DEFAULT (datetime('now')),
         link_image TEXT,
         CategoryId INTEGER,
         FOREIGN KEY (CategoryId) REFERENCES categories (id)
