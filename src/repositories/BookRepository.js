@@ -3,10 +3,10 @@ const BookModel = require('../models/BookModel');
 
 class BookRepository {
     static async createBook(book) {
-        const { title, author, isbn, editorial, price, stock, dateCreation, link_imagen, CategoryId } = book;
-        const sql = 'INSERT INTO books (title,author,isbn,editorial,price,stock,dateCreation,link_image,CategoryId) VALUES (?,?,?,?,?,?,?,?,?)';
+        const { id, title, author,first_publish_year,cover_image } = book;
+        const sql = 'INSERT INTO books (id, title, author,first_publish_year,cover_image) VALUES (?,?,?,?,?)';
         return new Promise((resolve, reject) => {
-            BookDB.run(sql, [title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId], function(err) {
+            BookDB.run(sql, [id, title, author,first_publish_year,cover_image], function(err) {
                 if (err) {
                     return reject(err);
                 }
@@ -25,7 +25,7 @@ class BookRepository {
                 if (!row) {
                     return resolve(null);
                 }
-                const book = new BookModel(row.id,row.title,row.author,row.isbn,row.editorial,row.price,row.stock,row.dateCreation,row.link_image,row.CategoryId);
+                const book = new BookModel(row.id,row.title,row.author,row.first_publish_year,row.cover_image);
                 resolve(book);
             });
         });
@@ -38,7 +38,7 @@ class BookRepository {
                 if (err) {
                     return reject(err);
                 }
-                const books = rows.map(row => new BookModel(row.id,row.title,row.author,row.isbn,row.editorial,row.price,row.stock,row.dateCreation,row.link_image,row.CategoryId));
+                const books = rows.map(row => new BookModel(row.id,row.title,row.author,row.first_publish_year,row.cover_image));
                 resolve(books);
             });
         });

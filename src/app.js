@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, 'views')));
 //importing routes
 const userRoutes = require('./routes/userRoutes');
 app.use('/users', userRoutes);
-const categoryRoutes = require('./routes/CategoryRoutes');
-app.use('/categories', categoryRoutes);
+//const categoryRoutes = require('./routes/CategoryRoutes');
+//app.use('/categories', categoryRoutes);
 const bookRoutes = require('./routes/BookRoutes');
 app.use('/books', bookRoutes);
 

@@ -2,7 +2,7 @@ const BookServices = require('../services/BookServices');
 
 class BookController {
     static async create(req, res) {
-        const { title, author, isbn, editorial, price, stock, dateCreation, link_imagen, CategoryId } = req.body;
+        const {  } = req.body;
         try {
             const result = await BookServices.createBook(title, author, isbn, editorial, price, stock, dateCreation, link_imagen, CategoryId);
             res.status(201).json(result);
