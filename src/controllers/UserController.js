@@ -68,11 +68,12 @@ class UserController {
             const user = await UserService.login(username, password);
             req.session.user = user;
             req.session.loggedin = true;
+            console.log('Session after login:', req.session);  // Verificar la sesión
             res.json({ success: true, message: 'Login exitoso', redirectUrl: '/dashboard' });
         } catch (error) {
-            res.status(401).json({ success: false, error: error.message });
+            res.status(401).json({ success: false, error: 'Credenciales incorrectas' });
         }
-    }
+    }    
 
     static logout(req, res) {
         req.session.destroy((err) => {

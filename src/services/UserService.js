@@ -26,16 +26,15 @@ class UserService {
     }
 
     static async login(username, password) {
-        if(!username || !password){
+        if (!username || !password) {
             throw new Error('Usuario y contraseña son requeridos');
         }
+    
         const user = await UserRepository.getUserByUsername(username);
-        if(!user){
+        if (!user || user.password !== password) {
             throw new Error('Credenciales incorrectas');
         }
-        if(password !== user.password){
-            throw new Error('Credenciales incorrectas');
-        }
+    
         return {
             id: user.id,
             names: user.names,
@@ -43,6 +42,7 @@ class UserService {
             email: user.email
         };
     }
+    
 }
 
 module.exports = UserService;

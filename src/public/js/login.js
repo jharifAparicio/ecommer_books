@@ -26,10 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (data.success) {
-                // Login exitoso
                 window.location.href = data.redirectUrl;
             } else {
-                // Login fallido
                 showError(data.error || 'Error al iniciar sesión. Por favor, intenta de nuevo.');
             }
         } catch (error) {

@@ -8,11 +8,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-    secret: 'tu_secreto',  // Cambia esto a un valor seguro en producción
+    secret: 'tu_secreto',
     resave: false,
     saveUninitialized: false,
     cookie: { 
-        secure: false, // Cambia a true cuando uses HTTPS
+        secure: false, // Cambia a true si usas HTTPS
         maxAge: 24 * 60 * 60 * 1000 // 24 horas
     }
 }));
