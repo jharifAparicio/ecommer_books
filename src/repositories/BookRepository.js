@@ -1,4 +1,4 @@
-const BookDB = require('../models/BookDB');
+const BookDB = require('../config/book');
 const BookModel = require('../models/BookModel');
 
 class BookRepository {
