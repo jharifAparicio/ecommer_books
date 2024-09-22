@@ -9,9 +9,6 @@ class Book {
         this.stock = stock;
         this.fechaCreacion = fechaCreacion;
         this.link_image = link_image;
-        if(!IdCategoryId || IdCategoryId != 'number'){
-            throw new Error('Invalid CategoryId');
-        }
         this.IdCategory = IdCategory;
     }
 }

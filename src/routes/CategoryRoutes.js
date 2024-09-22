@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const CategoryController = require('../controllers/CategoryController');
 
-router.post('/create', CategoryController.create);
+router.post('/', CategoryController.create);
 router.get('/', CategoryController.getAllCategories);
 router.get('/:id', CategoryController.getCategoryById);
 router.put('/:id', CategoryController.updateCategory);

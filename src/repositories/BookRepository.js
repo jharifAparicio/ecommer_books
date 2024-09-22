@@ -3,9 +3,10 @@ const BookModel = require('../models/BookModel');
 
 class BookRepository {
     static async createBook(book) {
-        const sql = 'INSERT INTO books (title,author,isb,editorial,price,stock,dateCreation,link_image,CategoryId) VALUES (?,?,?,?,?,?,?,?,?)';
+        const { title, author, isbn, editorial, price, stock, dateCreation, link_imagen, CategoryId } = book;
+        const sql = 'INSERT INTO books (title,author,isbn,editorial,price,stock,dateCreation,link_image,CategoryId) VALUES (?,?,?,?,?,?,?,?,?)';
         return new Promise((resolve, reject) => {
-            BookDB.run(sql, [title,author,isbn,editorial,price,,stock,dateCreation,link_imagen,CategoryId], function(err) {
+            BookDB.run(sql, [title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId], function(err) {
                 if (err) {
                     return reject(err);
                 }
