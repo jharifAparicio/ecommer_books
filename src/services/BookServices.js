@@ -1,6 +1,6 @@
 const BookRepository = require('../repositories/BookRepository');
 
-class  BookRepository{
+class  BookServices{
     static async createBook(title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId){
         const book = {title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId};
         return BookRepository.createBook(book);
@@ -19,4 +19,4 @@ class  BookRepository{
     }
 }
 
-module.exports = BookRepository;
+module.exports = BookServices;
