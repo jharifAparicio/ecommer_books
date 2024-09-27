@@ -18,7 +18,8 @@ bookDB.serialize(() => {
             title TEXT,
             author TEXT,
             first_publish_year INT,
-            cover_image TEXT
+            cover_image TEXT,
+            stock INT
     )`);
 })
 
