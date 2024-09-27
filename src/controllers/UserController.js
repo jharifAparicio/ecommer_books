@@ -69,7 +69,7 @@ class UserController {
             req.session.user = user;
             req.session.loggedin = true;
             console.log('Session after login:', req.session);  // Verificar la sesión
-            res.json({ success: true, message: 'Login exitoso', redirectUrl: '/dashboard' });
+            res.json({ success: true, message: 'Login exitoso', redirectUrl: '/libros' });
         } catch (error) {
             res.status(401).json({ success: false, error: 'Credenciales incorrectas' });
         }

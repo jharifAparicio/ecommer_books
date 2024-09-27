@@ -1,16 +1,18 @@
 const BookServices = require('../services/BookServices');
 
 class BookController {
+    // Método para crear un libro
     static async create(req, res) {
-        const {  } = req.body;
+        const { id, title, author, first_publish_year, cover_image } = req.body;
         try {
-            const result = await BookServices.createBook(title, author, isbn, editorial, price, stock, dateCreation, link_imagen, CategoryId);
+            const result = await BookServices.createBook(id, title, author, first_publish_year, cover_image);
             res.status(201).json(result);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
 
+    // Obtener un libro por su título
     static async getByTitle(req, res) {
         const { title } = req.params;
 
@@ -25,40 +27,55 @@ class BookController {
         }
     }
 
+    // Obtener todos los libros
     static async getAllBooks(req, res) {
         try {
             const books = await BookServices.getAllBooks();
+            if (!books || books.length === 0) {
+                return res.status(404).json({ error: 'No se encontraron libros.' });
+            }
             res.json(books);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
 
-    static async updateStock(req, res) {
-        const { title } = req.params;
-        const { newStock } = req.body;
-
-        if (!newStock) {
-            return res.status(400).json({ error: 'El nuevo stock es requerido' });
+    // Método para obtener los datos del libro y renderizar el formulario de edición
+    static async getEditForm(req, res) {
+        const { id } = req.params;
+        try {
+            const book = await BookServices.getBookByTitle(id); // Cambia esto si tu método busca por ID
+            if (!book) {
+                return res.status(404).send('Libro no encontrado');
+            }
+            res.render('books/editBook', { book });
+        } catch (error) {
+            res.status(500).send('Error al cargar el formulario de edición');
         }
+    }
+
+    // Método para manejar la actualización del libro
+    static async updateBook(req, res) {
+        const { id } = req.params;
+        const { title, author, first_publish_year, cover_image } = req.body;
 
         try {
-            const result = await BookServices.updateBookStock(title, newStock);
-            res.json(result);
+            await BookServices.updateBook(id, { title, author, first_publish_year, cover_image });
+            res.redirect('/books'); // Redirige a la vista de libros después de actualizar
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).send('Error al actualizar el libro');
         }
     }
 
     static async deleteBook(req, res) {
-        const { title } = req.params;
-
+        const { id } = req.params;
         try {
-            const result = await BookServices.deleteBook(title);
+            const result = await BookServices.deleteBook(id);
             res.json(result);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
 }
+
 module.exports = BookController;
