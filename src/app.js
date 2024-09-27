@@ -34,12 +34,27 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'users', 'login.html'));
 });
 
-// Render dashboard
-app.get('/dashboard', (req, res) => {
+// Serve libros page
+app.get('/libros', (req, res) => {
     if (req.session.user && req.session.loggedin) {
-        res.sendFile(path.join(__dirname, 'views', 'dashboard.html'));
+        res.sendFile(path.join(__dirname, 'views', 'books.html'));
     } else {
         res.redirect('/login');
+    }
+});
+
+// API endpoint para obtener libros
+app.get('/api/books', async (req, res) => {
+    if (req.session.user && req.session.loggedin) {
+        try {
+            const books = await BookServices.getAllBooks();
+            res.json(books);
+        } catch (error) {
+            console.error('Error al obtener libros:', error);
+            res.status(500).json({ error: 'Error al cargar los libros' });
+        }
+    } else {
+        res.status(401).json({ error: 'No autorizado' });
     }
 });
 
