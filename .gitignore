@@ -16,10 +16,6 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Bases de datos locales
-src/database/*.sqlite
-src/database/*.sqlite3
-
 # Archivos temporales
 *.tmp
 *.temp

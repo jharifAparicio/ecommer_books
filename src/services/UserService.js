@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const UserRepository = require('../repositories/UserRepository');
 
 class UserService {
@@ -6,12 +5,7 @@ class UserService {
         if (!names || !username || !email || !password) {
             throw new Error('Todos los campos son obligatorios');
         }
-        
-        //encriptar la contraseña
-        const salt = await bcrypt.genSalt(10);
-        const hasherPassword = await bcrypt.hash(password, salt);
-
-        const user = {names, username, email, password: hasherPassword};
+        const user = {names, username, email, password};
         return UserRepository.createUser(user);
     }
 
@@ -24,10 +18,7 @@ class UserService {
     }
 
     static async updatePassword(username, password) {
-        const salt = await bcrypt.genSalt(10);
-        const hasherPassword = await bcrypt.hash(password, salt);
-
-        return await UserRepository.updatePassword(username, hasherPassword);
+        return await UserRepository.updatePassword(username, password);
     }
 
     static async deleteUser(username) {
@@ -35,23 +26,23 @@ class UserService {
     }
 
     static async login(username, password) {
-        //verificar si el usuario existe
-        if(!username || !password){
+        if (!username || !password) {
             throw new Error('Usuario y contraseña son requeridos');
         }
-        //obtener el usuario desde repositorio
+    
         const user = await UserRepository.getUserByUsername(username);
-        if(!user){
-            throw new Error('Credenciales incorrectos');
+        if (!user || user.password !== password) {
+            throw new Error('Credenciales incorrectas');
         }
-
-        //comparamos la contraseña proporcionada con la encriptada
-        const isMatch = await bcrypt.compare(password, user.password);
-        if(!isMatch){
-            throw new Error('Credenciales incorrectos');
-        }
-        return user;
+    
+        return {
+            id: user.id,
+            names: user.names,
+            username: user.username,
+            email: user.email
+        };
     }
+    
 }
 
 module.exports = UserService;

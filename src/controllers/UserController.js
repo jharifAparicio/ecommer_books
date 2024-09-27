@@ -62,14 +62,26 @@ class UserController {
     }
 
     static async login(req, res) {
+        console.log('Login attempt:', req.body);
         const { username, password } = req.body;
-
         try {
             const user = await UserService.login(username, password);
-            res.json(user);
+            req.session.user = user;
+            req.session.loggedin = true;
+            console.log('Session after login:', req.session);  // Verificar la sesión
+            res.json({ success: true, message: 'Login exitoso', redirectUrl: '/libros' });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(401).json({ success: false, error: 'Credenciales incorrectas' });
         }
+    }    
+
+    static logout(req, res) {
+        req.session.destroy((err) => {
+            if(err) {
+                return res.status(500).json({ success: false, error: 'Error al cerrar sesión' });
+            }
+            res.json({ success: true, message: 'Sesión cerrada exitosamente' });
+        });
     }
 }
 
