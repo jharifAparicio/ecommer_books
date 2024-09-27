@@ -1,8 +1,8 @@
 const BookRepository = require('../repositories/BookRepository');
 
 class  BookServices{
-    static async createBook(title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId){
-        const book = {title,author,isbn,editorial,price,stock,dateCreation,link_imagen,CategoryId};
+    static async createBook(id,title,first_publish_year,cover_image){
+        const book = {id,title,first_publish_year,cover_image};
         return BookRepository.createBook(book);
     }
     static async getBookByTitle(title){
@@ -11,11 +11,11 @@ class  BookServices{
     static async getAllBooks(){
         return BookRepository.getAllBooks();
     }
-    static async updateBookStock(title,stock){
-        return BookRepository.updateBookStock(title,stock);
+    static async updateBook(id, updatedBook) {
+        return BookRepository.updateBook(id, updatedBook);
     }
-    static async deleteBook(title){
-        return BookRepository.deleteBook(title);
+    static async deleteBook(id){
+        return BookRepository.deleteBook(id);
     }
 }
 
