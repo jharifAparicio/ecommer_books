@@ -51,7 +51,7 @@ body{
 
 }
 
-#user, #password {
+#username, #password {
     width: 100%;
     margin-bottom: 20px;
     border: 2px solid rgb( 255 , 255 , 255 , .2);
@@ -62,7 +62,7 @@ body{
     outline: none; /* Quita el borde de enfoque predeterminado */
 }
 
-#user::placeholder, #password::placeholder{
+#username::placeholder, #password::placeholder{
     color:white;
 }
 
